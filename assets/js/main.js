@@ -1,86 +1,89 @@
-/*===== MENU SHOW =====*/
-const showMenu = ( toggleId, navId ) => {
-    const toggle = document.getElementById( toggleId ),
-      nav = document.getElementById( navId );
-  
-    if ( toggle && nav ) {
-      toggle.addEventListener( "click", () => {
-        nav.classList.toggle( "show" );
-      } );
+// Show or hide the navigation menu
+const toggleMenu = (toggleId, navId) => {
+  const toggle = document.getElementById(toggleId);
+  const nav = document.getElementById(navId);
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+  }
+};
+
+toggleMenu("nav-toggle", "nav-menu");
+
+// Highlight active link on scroll
+const navLinks = document.querySelectorAll(".nav-link");
+const sections = document.querySelectorAll(".section");
+
+window.addEventListener("scroll", () => {
+  let currentSectionId = "";
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+    if (scrollY >= sectionTop - 390) {
+      currentSectionId = section.getAttribute("id");
     }
-  };
-  showMenu( "nav-toggle", "nav-menu" );
-  
-  /*===== ACTIVE AND REMOVE MENU =====*/
-  const navLinks = document.querySelectorAll( ".nav-link" );
-  const sections = document.querySelectorAll( ".section" );
-  
-  window.addEventListener( "scroll", () => {
-    let current = '';
-    sections.forEach( section => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if ( scrollY >= sectionTop - 390 ) {
-        current = section.getAttribute( 'id' );
-      }
-    } )
-  
-    navLinks.forEach( link => {
-      link.classList.remove( 'active' );
-      if ( link.classList.contains( current ) ) {
-        link.classList.add( 'active' );
-      }
-    } )
-  } )
-  
-  // function linkAction() {
-  //   /*Active link*/
-  //   navLinks.forEach((n) => n.classList.remove("active"));
-  //   this.classList.add("active");
-  
-  //   /*Remove menu mobile*/
-  const navMenu = document.getElementById( "nav-menu" );
-  //   navMenu.classList.remove("show");
-  // }
-  navLinks.forEach( ( n ) => n.addEventListener( "click", () => { navMenu.classList.remove( "show" ) } ) );
-  
-  /*===== COPY Email =====*/
-  const copy = document.getElementById( "copy" );
-  copy.addEventListener( "click", () => {
-    navigator.clipboard.writeText( "zulfiqarshaikhofficial92@gmail.com" );
-    copy.innerHTML = "copied";
-    setTimeout( () => {
-      copy.innerHTML = null;
-    }, 1000 );
-  } );
-  
-  /*===== SCROLL REVEAL ANIMATION =====*/
-  const sr = ScrollReveal( {
-    origin: "top",
-    distance: "80px",
-    duration: 800,
-    reset: true,
-  } );
-  
-  /*SCROLL HOME*/
-  sr.reveal( ".home-title", {} );
-  sr.reveal( ".button", { delay: 200 } );
-  sr.reveal( ".home-img", { delay: 400 } );
-  sr.reveal( ".home-social-icon", { interval: 200 } );
-  
-  /*SCROLL ABOUT*/
-  sr.reveal( ".about-img", {} );
-  sr.reveal( ".about-subtitle", { delay: 400 } );
-  sr.reveal( ".about-text", { delay: 400 } );
-  
-  /*SCROLL SKILLS*/
-  sr.reveal( ".skills-subtitle", {} );
-  sr.reveal( ".skills-text", {} );
-  sr.reveal( ".skills-data", { interval: 100 } );
-  // sr.reveal(".skills-img", { delay: 600 });
-  
-  /*SCROLL projects*/
-  sr.reveal( ".project-img", { interval: 200 } );
-  
-  /*SCROLL CONTACT*/
-  // sr.reveal(".contact-input", { interval: 200 });
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove("active");
+    if (link.classList.contains(currentSectionId)) {
+      link.classList.add("active");
+    }
+  });
+});
+
+// Hide menu on mobile after clicking a link
+const navMenu = document.getElementById("nav-menu");
+
+navLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    navMenu.classList.remove("show");
+  });
+});
+
+// Copy email to clipboard
+const copyEmailBtn = document.getElementById("copy");
+
+if (copyEmailBtn) {
+  copyEmailBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText("zulfiqarshaikhofficial92@gmail.com");
+    copyEmailBtn.innerHTML = "Copied";
+    setTimeout(() => {
+      copyEmailBtn.innerHTML = "";
+    }, 1000);
+  });
+}
+
+// Scroll Reveal Animations
+const sr = ScrollReveal({
+  origin: "top",
+  distance: "80px",
+  duration: 800,
+  reset: true,
+});
+
+// Home section animations
+sr.reveal(".home-title");
+sr.reveal(".button", { delay: 200 });
+sr.reveal(".home-img", { delay: 400 });
+sr.reveal(".home-social-icon", { interval: 200 });
+
+// About section animations
+sr.reveal(".about-img");
+sr.reveal(".about-subtitle", { delay: 400 });
+sr.reveal(".about-text", { delay: 400 });
+
+// Skills section animations
+sr.reveal(".skills-subtitle");
+sr.reveal(".skills-text");
+sr.reveal(".skills-data", { interval: 100 });
+// sr.reveal(".skills-img", { delay: 600 }); // Uncomment if needed
+
+// Projects section animations
+sr.reveal(".project-img", { interval: 200 });
+
+// Contact section animations
+// sr.reveal(".contact-input", { interval: 200 }); // Uncomment if needed
